@@ -1,6 +1,7 @@
 var http = require('http');
 var URL = require('url');
 var AWS = require('aws-sdk');
+AWS.config.update({region:'us-east-1'});
 
 http.createServer(function(request, response) {
     var body = [];
