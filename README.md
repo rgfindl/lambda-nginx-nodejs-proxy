@@ -3,7 +3,7 @@ API Proxy to AWS Lambda's, using nginx, nodejs, and running on EC2.
 
 This package is mainly used to test the latency between an EC2 and Lambda.
 
-Why not use API Gateway?  We load tested with API Gateway but the results were not great.  At the time of testing
+Why not use API Gateway?  We tried that as well.  The results are below.  At the time of testing
 API Gateway uses CloudFront (public url) which added latency.
 
 The results of the API Gateway + Lambda results are below, as are the results of the EC2 + Lambda load test.
@@ -64,7 +64,7 @@ http://ec2-52-91-227-139.compute-1.amazonaws.com/api?lambda=<lambda_name>&email=
 ```
 
 ## Load test results
-A cold start was used with both tests.  Lambda requires some time to load after the method has been terminated or it is new.  
+A cold start was used with both tests.  Lambda requires some time to load after the method has been terminated or it is new.
 
 ### EC2 -> Lambda
 Executed from local machine.
