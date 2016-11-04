@@ -70,29 +70,29 @@ Executed from local machine.
 Path: Local machine -> EC2 -> Lambda
 
 ```
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Target URL:          http://ec2-52-91-227-139.compute-1.amazonaws.com/api?lambda=serverless-test-dynamodb-token-dev-hello&email=rgfindley@gmail.com
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Max time (s):        60
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Concurrency level:   1
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Agent:               none
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Requests per second: 10
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Completed requests:  594
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Total errors:        0
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Total time:          60.0051014 s
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Requests per second: 10
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Total time:          60.0051014 s
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO Percentage of the requests served within a certain time
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO   50%      105 ms
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO   90%      132 ms
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO   95%      142 ms
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO   99%      210 ms
-[Fri Nov 04 2016 11:52:13 GMT-0400 (EDT)] INFO  100%      563 ms (longest request)
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Target URL:          http://ec2-52-91-227-139.compute-1.amazonaws.com/api?lambda=serverless-test-dynamodb-token-dev-hello&email=rgfindley@gmail.com
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Max time (s):        60
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Concurrency level:   1
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Agent:               none
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Requests per second: 10
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Completed requests:  591
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Total errors:        0
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Total time:          60.005051103 s
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Requests per second: 10
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Total time:          60.005051103 s
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO Percentage of the requests served within a certain time
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO   50%      102 ms
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO   90%      131 ms
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO   95%      160 ms
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO   99%      698 ms
+[Fri Nov 04 2016 12:09:43 GMT-0400 (EDT)] INFO  100%      3155 ms (longest request)
 ```
 
 Average time as measured from the EC2 (node backend) to Lambda.
 ```
-Execution avg: 66.06050420168067ms
+Execution avg: 83.27027027027027ms
 ```
 
 ### API Gateway + Lambda
