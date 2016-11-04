@@ -3,6 +3,9 @@ var URL = require('url');
 var AWS = require('aws-sdk');
 AWS.config.update({region:'us-east-1'});
 
+var execution_count = 0;
+var execution_latency = 0;
+
 http.createServer(function(request, response) {
     var body = [];
     var url = request.url;
@@ -41,6 +44,7 @@ http.createServer(function(request, response) {
                 })
             };
         }
+        var now = new Date();
         lambda.invoke(params, function(err, data) {
             if (err) {
                 console.log(err, err.stack);
@@ -49,6 +53,11 @@ http.createServer(function(request, response) {
                 response.write(JSON.stringify(err));
                 response.end();
             } else {
+                var end = new Date();
+                console.log('Execution time: '+(end.getTime()-now.getTime())+'ms');
+                execution_count++;
+                execution_latency += (end.getTime()-now.getTime());
+                console.log('Execution avg: '+(execution_latency/execution_count)+'ms');
                 console.log(data);
                 response.setHeader('Content-Type', 'application/json');
                 response.statusCode = data.StatusCode;
