@@ -4,7 +4,7 @@
   "description": "API Proxy to AWS Lambda's, using nginx, nodejs, and running on EC2.",
   "main": "app.js",
   "scripts": {
-    "start": "forever app.js",
+    "start": "forever start app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/rgfindl/lambda-nginx-nodejs-proxy/issues"
   },
-  "homepage": "https://github.com/rgfindl/lambda-nginx-nodejs-proxy#readme"
+  "homepage": "https://github.com/rgfindl/lambda-nginx-nodejs-proxy#readme",
+  "dependencies": {
+    "aws-sdk": "^2.6.15"
+  }
 }
