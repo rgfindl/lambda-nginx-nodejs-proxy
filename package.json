@@ -1,0 +1,20 @@
+{
+  "name": "lambda-nginx-nodejs-proxy",
+  "version": "1.0.0",
+  "description": "API Proxy to AWS Lambda's, using nginx, nodejs, and running on EC2.",
+  "main": "app.js",
+  "scripts": {
+    "start": "forever app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://rgfindl@github.com/rgfindl/lambda-nginx-nodejs-proxy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rgfindl/lambda-nginx-nodejs-proxy/issues"
+  },
+  "homepage": "https://github.com/rgfindl/lambda-nginx-nodejs-proxy#readme"
+}
