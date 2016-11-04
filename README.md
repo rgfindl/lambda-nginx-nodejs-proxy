@@ -64,6 +64,8 @@ http://ec2-52-91-227-139.compute-1.amazonaws.com/api?lambda=<lambda_name>&email=
 ```
 
 ## Load test results
+A cold start was used with both tests.  Lambda requires some time to load after the method has been terminated or it is new.  
+
 ### EC2 -> Lambda
 Executed from local machine.
 
