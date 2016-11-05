@@ -1,17 +1,14 @@
 var http = require('http');
 var URL = require('url');
+var _ = require('lodash');
 var AWS = require('aws-sdk');
 AWS.config.update({region:'us-east-1'});
-
-var AWS = require('aws-sdk');
-AWS.config.update({
-    region: "us-east-1"
-});
-var _ = require('lodash');
 var docClient = new AWS.DynamoDB.DocumentClient();
 
+//
+// DynamoDB functions.
+//
 var functions = {};
-
 functions.put = function(user, callback) {
     var params = {
         TableName:'usersTable',
@@ -53,6 +50,9 @@ functions.get = function(email, callback) {
     });
 };
 
+//
+// http server
+//
 http.createServer(function(request, response) {
     var body = [];
     var url = request.url;
@@ -70,9 +70,11 @@ http.createServer(function(request, response) {
             console.error(err);
         });
 
-        var lambda = new AWS.Lambda();
         console.log(request.method);
         if (!_.isNil(url_parsed.query.ec2)) {
+            //
+            // Direct to DynamoDB.
+            //
             if (request.method === 'GET') {
                 functions.get(url_parsed.query.email, function(err, data) {
                     response.setHeader('Content-Type', 'application/json');
@@ -113,6 +115,9 @@ http.createServer(function(request, response) {
                 });
             }
         } else {
+            //
+            // Lambda then to DynamoDB.
+            //
             if (request.method === 'GET') {
                 var params = {
                     FunctionName: url_parsed.query.lambda, /* required */
@@ -132,7 +137,7 @@ http.createServer(function(request, response) {
                     })
                 };
             }
-            var now = new Date();
+            var lambda = new AWS.Lambda();
             lambda.invoke(params, function(err, data) {
                 if (err) {
                     console.log(err, err.stack);
