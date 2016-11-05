@@ -3,8 +3,55 @@ var URL = require('url');
 var AWS = require('aws-sdk');
 AWS.config.update({region:'us-east-1'});
 
-var execution_count = 0;
-var execution_latency = 0;
+var AWS = require('aws-sdk');
+AWS.config.update({
+    region: "us-east-1"
+});
+var _ = require('lodash');
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+var functions = {};
+
+functions.put = function(user, callback) {
+    var params = {
+        TableName:'usersTable',
+        Key:{
+            "email": _.toLower(user.email)
+        },
+        UpdateExpression: "set user_name = :name",
+        ExpressionAttributeValues:{
+            ':name':user.name
+        },
+        ReturnValues:"ALL_NEW"
+    };
+    console.log(JSON.stringify(params));
+    docClient.update(params, function(err, data) {
+        if (!err) {
+            var data = data.Attributes;
+            data.name = data.user_name;
+            delete data.user_name;
+        }
+        callback(err, data);
+    });
+};
+
+functions.get = function(email, callback) {
+    var params = {
+        TableName:'usersTable',
+        Key:{
+            email: email
+        }
+    };
+    console.log(JSON.stringify(params));
+    docClient.get(params, function(err, data) {
+        if (!err && !_.isEmpty(data)) {
+            var data = data.Item;
+            data.name = data.user_name;
+            delete data.user_name;
+        }
+        callback(err, data);
+    });
+};
 
 http.createServer(function(request, response) {
     var body = [];
@@ -25,45 +72,82 @@ http.createServer(function(request, response) {
 
         var lambda = new AWS.Lambda();
         console.log(request.method);
-        if (request.method === 'GET') {
-            var params = {
-                FunctionName: url_parsed.query.lambda, /* required */
-                Payload: JSON.stringify({
-                    queryStringParameters: {
-                        email: url_parsed.query.email
-                    },
-                    httpMethod: 'GET'
-                })
-            };
-        } else {
-            var params = {
-                FunctionName: url_parsed.query.lambda, /* required */
-                Payload: JSON.stringify({
-                    body: body,
-                    httpMethod: 'POST'
-                })
-            };
-        }
-        var now = new Date();
-        lambda.invoke(params, function(err, data) {
-            if (err) {
-                console.log(err, err.stack);
-                response.setHeader('Content-Type', 'application/json');
-                response.statusCode = 500;
-                response.write(JSON.stringify(err));
-                response.end();
+        if (!_.isNil(url_parsed.query.ec2)) {
+            if (request.method === 'GET') {
+                functions.get(url_parsed.query.email, function(err, data) {
+                    response.setHeader('Content-Type', 'application/json');
+                    if (err) {
+                        response.statusCode = 500;
+                        response.write(JSON.stringify(err));
+                        response.end();
+                    } else {
+                        console.log(data);
+                        if (_.isEmpty(data)) {
+                            response.statusCode = 404;
+                            response.write('Not Found');
+                            response.end();
+                        } else {
+                            response.statusCode = 200;
+                            data.ec2=true;
+                            response.write(JSON.stringify(data));
+                            response.end();
+                        }
+                    }
+                });
             } else {
-                var end = new Date();
-                console.log('Execution time: '+(end.getTime()-now.getTime())+'ms');
-                execution_count++;
-                execution_latency += (end.getTime()-now.getTime());
-                console.log('Execution avg: '+(execution_latency/execution_count)+'ms');
-                console.log(data);
-                response.setHeader('Content-Type', 'application/json');
-                response.statusCode = data.StatusCode;
-                response.write(JSON.parse(data.Payload).body);
-                response.end();
+                var user = JSON.parse(body);
+                console.log(event.body);
+                functions.put(user, function(err, data) {
+                    response.setHeader('Content-Type', 'application/json');
+                    if (err) {
+                        response.statusCode = 500;
+                        response.write(JSON.stringify(err));
+                        response.end();
+                    } else {
+                        console.log(data);
+                        response.statusCode = 200;
+                        data.ec2=true;
+                        response.write(JSON.stringify(data));
+                        response.end();
+                    }
+                });
             }
-        });
+        } else {
+            if (request.method === 'GET') {
+                var params = {
+                    FunctionName: url_parsed.query.lambda, /* required */
+                    Payload: JSON.stringify({
+                        queryStringParameters: {
+                            email: url_parsed.query.email
+                        },
+                        httpMethod: 'GET'
+                    })
+                };
+            } else {
+                var params = {
+                    FunctionName: url_parsed.query.lambda, /* required */
+                    Payload: JSON.stringify({
+                        body: body,
+                        httpMethod: 'POST'
+                    })
+                };
+            }
+            var now = new Date();
+            lambda.invoke(params, function(err, data) {
+                if (err) {
+                    console.log(err, err.stack);
+                    response.setHeader('Content-Type', 'application/json');
+                    response.statusCode = 500;
+                    response.write(JSON.stringify(err));
+                    response.end();
+                } else {
+                    console.log(data);
+                    response.setHeader('Content-Type', 'application/json');
+                    response.statusCode = data.StatusCode;
+                    response.write(JSON.parse(data.Payload).body);
+                    response.end();
+                }
+            });
+        }
     });
 }).listen(3000);

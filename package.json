@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rgfindl/lambda-nginx-nodejs-proxy#readme",
   "dependencies": {
-    "aws-sdk": "^2.6.15"
+    "aws-sdk": "^2.6.15",
+    "lodash": "^4.16.6"
   }
 }

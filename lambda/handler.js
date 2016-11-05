@@ -73,6 +73,7 @@ module.exports.users = function(event, context, callback) {
               statusCode: 404,
               body:'Not found'
             };
+            callback(null, response);
           } else {
             var response = {
               statusCode: 200,
