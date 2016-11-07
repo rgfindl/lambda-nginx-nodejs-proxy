@@ -10,19 +10,30 @@ Here are the results:
 ## Results
 We used ping.apex.sh to record latency.
 
+mean response time
+- 528ms, API Gateway -> Lambda -> DynamoDB
+- 226ms, ELB -> EC2 (nginx + node.js proxy) -> Lambda -> DynamoDB
+- 176ms, ELB -> EC2 (nginx + node.js proxy) -> DynamoDB
+
 ### 48 hours
 ![apex_ping/week_gateway_lambda_dynamodb.png](apex_ping/week_gateway_lambda_dynamodb.png)
+528ms - mean response time
 ---
-![apex_ping/week_gateway_lambda_dynamodb.png](apex_ping/week_elb_ec2_lambda_dynamodb.png)
+![apex_ping/week_elb_ec2_lambda_dynamodb.png](apex_ping/week_elb_ec2_lambda_dynamodb.png)
+226ms - mean response time
 ---
-![apex_ping/week_gateway_lambda_dynamodb.png](apex_ping/week_elb_ec2_dynamodb.png)
+![apex_ping/week_elb_ec2_dynamodb.png](apex_ping/week_elb_ec2_dynamodb.png)
+176ms - mean response time
 
-### 1 hours
-![apex_ping/week_gateway_lambda_dynamodb.png](apex_ping/week_gateway_lambda_dynamodb.png)
+### 1 hour
+![apex_ping/hour_gateway_lambda_dynamodb.png](apex_ping/hour_gateway_lambda_dynamodb.png)
+530ms - mean response time
 ---
-![apex_ping/week_gateway_lambda_dynamodb.png](apex_ping/week_elb_ec2_lambda_dynamodb.png)
+![apex_ping/hour_elb_ec2_lambda_dynamodb.png](apex_ping/hour_elb_ec2_lambda_dynamodb.png)
+235ms - mean response time
 ---
-![apex_ping/week_gateway_lambda_dynamodb.png](apex_ping/week_elb_ec2_dynamodb.png)
+![apex_ping/hour_elb_ec2_dynamodb.png](apex_ping/hour_elb_ec2_dynamodb.png)
+181ms - mean response time
 
 ## EC2 Setup
 Spin up an EC2 running Amazon Linux and use the User Data below.
