@@ -35,6 +35,12 @@ mean response time
 ![apex_ping/hour_elb_ec2_dynamodb.png](apex_ping/hour_elb_ec2_dynamodb.png)
 181ms - mean response time
 
+### More latency graphs
+![apex_ping/APIGateway_Latency.png](apex_ping/APIGateway_Latency.png)
+![apex_ping/ELB_Latency.png](apex_ping/ELB_Latency.png)
+![apex_ping/DynamoDB_Latency.png](apex_ping/DynamoDB_Latency.png)
+
+
 ## EC2 Setup
 Spin up an EC2 running Amazon Linux and use the User Data below.
 
