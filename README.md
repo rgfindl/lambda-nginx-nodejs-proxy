@@ -9,7 +9,8 @@ Here are the results:
 
 ## Results
 We used ping.apex.sh to record latency.
-![apex_ping/week_gateway_lambda_dynamodb.png](week_gateway_lambda_dynamodb.png)
+
+![apex_ping/week_gateway_lambda_dynamodb.png](apex_ping/week_gateway_lambda_dynamodb.png)
 
 ## EC2 Setup
 Spin up an EC2 running Amazon Linux and use the User Data below.
