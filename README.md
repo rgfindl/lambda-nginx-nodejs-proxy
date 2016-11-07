@@ -1,12 +1,15 @@
-# nginx + node.js proxy to AWS Lambda
-API Proxy to AWS Lambda's, using nginx, nodejs, and running on EC2.
+# AWS Lambda Latency Tests
+This project tests AWS Lambda latency using several differnt configurations.
 
-This package is mainly used to test the latency between an EC2 and Lambda.
+- API Gateway -> Lambda -> DynamoDB
+- ELB -> EC2 (nginx + node.js proxy) -> Lambda -> DynamoDB
+- ELB -> EC2 (nginx + node.js proxy) -> DynamoDB
 
-Why not use API Gateway?  We tried that as well.  The results are below.  At the time of testing
-API Gateway uses CloudFront (public url) which added latency.
+Here are the results:
 
-The results of the API Gateway + Lambda results are below, as are the results of the EC2 + Lambda load test.
+## Results
+We used ping.apex.sh to record latency.
+![apex_ping/week_gateway_lambda_dynamodb.png](week_gateway_lambda_dynamodb.png)
 
 ## EC2 Setup
 Spin up an EC2 running Amazon Linux and use the User Data below.
